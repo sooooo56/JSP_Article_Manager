@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>목록</title>
 </head>
 <body>
-
+	<%
+		out.print(request.getAttribute("articleListMap"));
+	%>
 </body>
 </html>
