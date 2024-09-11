@@ -39,4 +39,24 @@
     <servlet-name>ArticleListPage</servlet-name>
     <url-pattern>/ArticleListPage</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ArticleWrite</display-name>
+    <servlet-name>ArticleWrite</servlet-name>
+    <servlet-class>com.koreaIT.jsp.am.ArticleWrite</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArticleWrite</servlet-name>
+    <url-pattern>/ArticleWrite</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ArticleDoWrtie</display-name>
+    <servlet-name>ArticleDoWrtie</servlet-name>
+    <servlet-class>com.koreaIT.jsp.am.ArticleDoWrtie</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArticleDoWrtie</servlet-name>
+    <url-pattern>/ArticleDoWrtie</url-pattern>
+  </servlet-mapping>
 </web-app>
