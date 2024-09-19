@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.koreaIT.jsp.am.config.Config;
 import com.koreaIT.jsp.am.util.DBUtil;
 import com.koreaIT.jsp.am.util.SecSql;
 
@@ -13,15 +14,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/article/doWrite")
 public class ArticleDoWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private final String URL = "jdbc:mysql://localhost:3306/2024_09_jsp_am?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull";
-	private final String USERNAME = "root";
-	private final String PASSWORD = "";
-			
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html; charset=UTF-8;");
@@ -29,16 +27,19 @@ public class ArticleDoWriteServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
 		
+		HttpSession session = request.getSession();
+		
 		Connection connection = null;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			Class.forName(Config.getDBDriverName());
+			connection = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUsr(), Config.getDBUsrPw());
 
 			SecSql sql = new SecSql();
 			sql.append("INSERT INTO article");
 			sql.append("SET regDate = NOW()");
 			sql.append(", updateDate = NOW()");
+			sql.append(", memberId = ?", (int) session.getAttribute("loginedMemberId"));
 			sql.append(", title = ?", title);
 			sql.append(", `body` = ?", body);
 			
